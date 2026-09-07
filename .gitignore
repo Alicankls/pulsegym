@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Orijinal PNG kaynakları — public/images altındaki WebP'lerden üretildi.
+# Deploy edilmez; yeniden üretim gerekirse burada duruyor.
+assets-src/

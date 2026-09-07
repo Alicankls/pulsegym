@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PULSE Athletic Club — Premium Fitness Web Sitesi (Demo)
 
-## Getting Started
+Spor salonu / fitness işletmelerine sunulmak üzere hazırlanmış, **tamamen kurgusal** bir
+premium fitness kulübü web sitesi. Satış demolarında "sizin işletmeniz için böyle bir dijital
+sistem kurabiliriz" örneği olarak kullanılmak üzere tasarlandı.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router, Turbopack) + React 19 + TypeScript
+- **Tailwind CSS v4** — tema token'ları `app/globals.css` içinde
+- **lucide-react** — ikonlar
+- **framer-motion** — yalnızca anlamlı etkileşimler (scroll reveal, mobil menü, accordion, sekme geçişi)
+- **clsx + tailwind-merge** — sınıf birleştirme yardımcıları
+
+## Çalıştırma
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev    # http://localhost:3000
+npm run build  # production build (27 rota, tamamı statik)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Yapı
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+app/            15 sayfa rotası + dinamik program/eğitmen detayları + sitemap.ts + robots.ts
+components/
+  ui/           Button, Container, Section, SectionHeader, Accordion, FormField,
+                Stat (count-up), Reveal, ImagePlaceholder
+  layout/       Navbar, MobileNav, Footer, StickyMobileCTA
+  sections/     Hero, Stats, ClubIntro, Programs, WhyPulse, Facility, Coaches,
+                ClassPreview, Memberships, Testimonials, FinalCTA, Location,
+                FaqSection, ScheduleBoard, GalleryGrid
+  cards/        ProgramCard, CoachCard, MembershipCard, TestimonialCard, ScheduleItem
+  forms/        TrialForm, ContactForm (simüle; backend entegrasyonuna hazır)
+data/           site, programs, coaches, memberships, schedule, testimonials, faqs
+lib/            utils (cn)
+docs/           brand, design-system, sitemap, content, image-manifest, reference-analysis
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## İçerik modeli
 
-## Learn More
+Tüm işletme içeriği `data/` altında tek kaynaktan beslenir. Program ve eğitmen detay
+sayfaları `generateStaticParams` ile bu veriden statik üretilir — yeni bir program/eğitmen
+eklemek yalnızca ilgili `data/` dosyasına kayıt eklemektir.
 
-To learn more about Next.js, take a look at the following resources:
+## Form entegrasyonu
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`components/forms/TrialForm.tsx` ve `ContactForm.tsx` içindeki `submitTrial` / `submitContact`
+fonksiyonları şu an gönderimi simüle eder. Gerçek projede `/api/...` route handler'a POST
+etmek yeterlidir; UI, başarı/hata durumları hazırdır.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Yerel SEO genişleme noktası
 
-## Deploy on Vercel
+`docs/sitemap.md` içinde tanımlı desenle `/kadikoy-spor-salonu`, `/kadikoy-personal-training`
+gibi yerel landing sayfaları aynı bileşen sistemiyle eklenebilir (öneri:
+`app/(local)/[location]-[service]/page.tsx` + `data/local-pages.ts`).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Görseller
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Görseller henüz üretilmedi; tüm görsel alanları `ImagePlaceholder` bileşeniyle temsil ediliyor
+(oran/yön/etiket korunur). Üretim spec'leri için `docs/image-manifest.md`.
+
+## Önemli not
+
+Bu sitedeki tüm işletme bilgileri, fiyatlar, eğitmenler ve üye görüşleri **kurgusaldır**.
+Footer'da demo bildirimi yer alır; gerçek müşteriye uyarlanırken içerik `data/` dosyalarından
+güncellenir.
+

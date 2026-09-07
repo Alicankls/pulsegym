@@ -1,0 +1,14 @@
+
+> pulse-athletic-club@0.1.0 dev
+> next dev
+
+▲ Next.js 16.3.2 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.40:3000
+✓ Ready in 5.5s
+✓ Running next.config.ts took 330ms
+
+○ Compiling / ...
+ GET / 200 in 18.8s (next.js: 15.5s, application-code: 3.3s)
+ GET / 200 in 541ms (next.js: 115ms, application-code: 426ms)
+ GET / 200 in 488ms (next.js: 11ms, application-code: 477ms)
